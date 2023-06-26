@@ -1,0 +1,39 @@
+### Como usar:
+#
+# Docker:
+# docker login https://dti-registro.unilab.edu.br
+# docker build -t erivando/pentaho-biserver-ce:latest .
+# dcker tag erivando/pentaho-biserver-ce:latest erivando/pentaho-biserver-ce:main
+# docker push erivando/pentaho-biserver-ce:main
+#
+# Compose V2 (para compose V1 use 'docker-compose'):
+# docker compose up --build -d
+# docker compose logs -f
+# docker exec -it pentaho-debug /bin/bash
+# docker compose down
+
+version: '3.9'
+
+services:
+  app-build:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+      args:
+        - SERVER_VERSION=9.4.0.0-343
+    image: erivando/pentaho-biserver-ce:debug
+    container_name: pentaho-debug
+    restart: always
+    ports:
+      - "8086:8080"
+    networks:
+      - development
+
+volumes:
+  postgresql_data:
+    driver: local
+    
+networks:
+ development:
+   name: development
+   driver: bridge

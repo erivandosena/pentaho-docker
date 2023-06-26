@@ -2,9 +2,9 @@
 
 
 <!-- 
-This is the spring configuration file that is used to wire session startup actions into the Pentaho
-BI Platform. Session startup actions are action sequences that are run when a particular type of
-session is started up. At the time of this writing the known session types were: 
+Este é o arquivo de configuração de spring que é usado para conectar as ações de inicialização da sessão no Pentaho. 
+As ações de inicialização da sessão são sequências de ações que são executadas quando um determinado tipo de
+sessão é iniciada. No momento da redação deste artigo, os tipos de sessão conhecidos eram:
 PentahoHttpSession, PentahoPortletSession, UserSession, & Standalone session.
 -->
 

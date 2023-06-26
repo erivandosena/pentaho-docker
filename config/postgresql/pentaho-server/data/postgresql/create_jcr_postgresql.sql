@@ -1,5 +1,5 @@
 --
--- note: this script assumes pg_hba.conf is configured correctly
+-- nota: este script assume que o pg_hba.conf está configurado corretamente
 --
 
 -- \connect postgres postgres
