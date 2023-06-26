@@ -4,8 +4,8 @@ DROP DATABASE IF EXISTS quartz;
 DROP DATABASE IF EXISTS shark;
 
 DROP USER IF EXISTS hibuser, pentaho_user, pentaho_admin;
--- Change passwords for security
--- NOTE: Passwords must match the datasources in the Pentaho BI Platform system
+-- Alterar senhas para segurança
+-- NOTA: As senhas devem corresponder às fontes de dados no sistema Pentaho
 CREATE USER "hibuser" WITH LOGIN PASSWORD '@@hibuser@@';
 CREATE USER "pentaho_user" WITH LOGIN PASSWORD '@@pentaho_user@@';
 CREATE USER "pentaho_admin" WITH LOGIN PASSWORD '@@pentaho_admin@@';

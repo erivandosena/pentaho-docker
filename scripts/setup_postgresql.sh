@@ -44,10 +44,10 @@ if [ "$PGHOST" ]; then
 
 	cp -r $PENTAHO_HOME/config $PENTAHO_HOME/config_tmp
 
-        rm -rf  "$PENTAHO_HOME/biserver-ce/tomcat/conf/Catalina/*"
-	rm -rf  "$PENTAHO_HOME/biserver-ce/tomcat/temp/*"
-	rm -rf	"$PENTAHO_HOME/biserver-ce/tomcat/work/*"
-	rm -rf	"$PENTAHO_HOME/biserver-ce/tomcat/logs/*"
+        rm -rf  "$PENTAHO_HOME/pentaho-server/tomcat/conf/Catalina/*"
+	rm -rf  "$PENTAHO_HOME/pentaho-server/tomcat/temp/*"
+	rm -rf	"$PENTAHO_HOME/pentaho-server/tomcat/work/*"
+	rm -rf	"$PENTAHO_HOME/pentaho-server/tomcat/logs/*"
 
 	$PENTAHO_HOME/scripts/replace.sh "localhost:5432" "$PGHOST:$PGPORT" -path "$PENTAHO_HOME/config_tmp/" -infile
 	$PENTAHO_HOME/scripts/replace.sh "@@hibuser@@" "$PGPASSWORD" -path "$PENTAHO_HOME/config_tmp/" -infile
@@ -55,23 +55,23 @@ if [ "$PGHOST" ]; then
 	$PENTAHO_HOME/scripts/replace.sh "@@pentaho_user@@" "$PGPASSWORD" -path "$PENTAHO_HOME/config_tmp/" -infile
 	$PENTAHO_HOME/scripts/replace.sh "awsbiuser" "$PGUSER" -path "$PENTAHO_HOME/config_tmp/" -infile
         if [ "$RDS_HOSTNAME" ]; then
-	 sed -i 's/TABLESPACE = pg_default;/;/g' $PENTAHO_HOME/config_tmp/postgresql/biserver-ce/data/postgresql/*.sql
+	 sed -i 's/TABLESPACE = pg_default;/;/g' $PENTAHO_HOME/config_tmp/postgresql/pentaho-server/data/postgresql/*.sql
 	fi
 
-	cp -r $PENTAHO_HOME/config_tmp/postgresql/biserver-ce/* $PENTAHO_HOME/biserver-ce/
+	cp -r $PENTAHO_HOME/config_tmp/postgresql/pentaho-server/* $PENTAHO_HOME/pentaho-server/
 	rm -rf $PENTAHO_HOME/config_tmp
 
 	if [ "$CHK_JCR" -eq "0" ]; then
-	        psql -U $PGUSER  -h $PGHOST -d $PGDATABASE -f $PENTAHO_HOME/biserver-ce/data/postgresql/create_jcr_postgresql.sql
+	        psql -U $PGUSER  -h $PGHOST -d $PGDATABASE -f $PENTAHO_HOME/pentaho-server/data/postgresql/create_jcr_postgresql.sql
 	fi
 	if [ "$CHK_HIBERNATE" -eq "0" ]; then
-	        psql -U $PGUSER -h $PGHOST -d $PGDATABASE -f $PENTAHO_HOME/biserver-ce/data/postgresql/create_repository_postgresql.sql
+	        psql -U $PGUSER -h $PGHOST -d $PGDATABASE -f $PENTAHO_HOME/pentaho-server/data/postgresql/create_repository_postgresql.sql
 	fi
 	if [ "$CHK_QUARTZ" -eq "0" ]; then
-	        psql -U $PGUSER -h $PGHOST -d $PGDATABASE -f $PENTAHO_HOME/biserver-ce/data/postgresql/create_quartz_postgresql.sql
+	        psql -U $PGUSER -h $PGHOST -d $PGDATABASE -f $PENTAHO_HOME/pentaho-server/data/postgresql/create_quartz_postgresql.sql
 	fi
 	 if [ "$CHK_SDATA" -eq "0" ]; then
-                psql -U $PGUSER -h $PGHOST -d $PGDATABASE -f $PENTAHO_HOME/biserver-ce/data/postgresql/sampledata.sql
+                psql -U $PGUSER -h $PGHOST -d $PGDATABASE -f $PENTAHO_HOME/pentaho-server/data/postgresql/sampledata.sql
         fi
 
 fi
